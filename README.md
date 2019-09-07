@@ -58,3 +58,9 @@ docker build . -t "dockerhello"
 ```
 
 This builds the container using the Dockerfile in the current directory, and gives it the tag "dockerhello". At this point, `hello.c` has been copied over and built using gcc inside our Docker image, and will execuse as soon as the container starts.
+
+Now we run it:
+```
+docker run dockerhello
+```
+And you should see your 
