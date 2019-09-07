@@ -63,4 +63,4 @@ Now we run it:
 ```
 docker run dockerhello
 ```
-And you should see your 
+And you should see "hello world" printed on the screen.
