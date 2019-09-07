@@ -6,7 +6,7 @@ This tutorial will walk you through using Docker for assigned projects in CS 761
 Among other reasons using Docker is a good idea in general, some reasons for using it for projects in CS 7610 are:
 
 1. Project submissions become highly reproducible, thus less likely to be graded incorrectly
-2. It will become much easier to write and test out distributed applications for the course, which will likely run on multiple instances running, once you get past the initial learning curve of Docker
+2. It will become much easier to write and test out distributed applications for the course, which will likely have multiple instances running, once you get past the initial learning curve of Docker
 
 
 ## Simple application
@@ -46,7 +46,7 @@ While most of it is pretty self-explanatory, especially if you're comfortable us
 
 The first line, `FROM ubuntu:latest`, specifies what base image we're using for our container. In this you have many options, I usually go with `ubuntu:latest` and build on top of that.
 
-Next, we copy over the `hello.c` file using the `ADD` directive. After that we install `gcc` to compile `hello.c` (alternatively you could have used a base image that already included gcc).
+Next, we copy over the `hello.c` file using the `ADD` directive. After that we install gcc to compile `hello.c` (alternatively you could have used a base image that already included gcc).
 
 Next, using the `WORKDIR` directive, we move to the `/app/` directory and compile `hello.c` using gcc.
 
