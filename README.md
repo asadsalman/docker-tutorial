@@ -44,3 +44,17 @@ While there are many, many variations of how this Dockerfile could look like and
 
 While most of it is pretty self-explanatory, especially if you're comfortable using the shell, I'll walk through what the file means.
 
+The first line, `FROM ubuntu:latest`, specifies what base image we're using for our container. In this you have many options, I usually go with `ubuntu:latest` and build on top of that.
+
+Next, we copy over the `hello.c` file using the `ADD` directive. After that we install `gcc` to compile `hello.c` (alternatively you could have used a base image that already included gcc).
+
+Next, using the `WORKDIR` directive, we move to the `/app/` directory and compile `hello.c` using gcc.
+
+Finally, I set the entrypoint of our container to be the newly built `hello` binary. What this means is, as soon as the container runs, `/app/hello` will be excuted.
+
+Let's now build and run this container. While in the `docker-hello` directory, run the following in the shell:
+```
+docker build . -t "dockerhello"
+```
+
+This builds the container using the Dockerfile in the current directory, and gives it the tag "dockerhello". At this point, `hello.c` has been copied over and built using gcc inside our Docker image, and will execuse as soon as the container starts.
