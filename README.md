@@ -46,7 +46,7 @@ While most of it is pretty self-explanatory, especially if you're comfortable us
 
 The first line, `FROM ubuntu:latest`, specifies what base image we're using for our container. In this you have many options, I usually go with `ubuntu:latest` and build on top of that.
 
-Next we install gcc, which we'll use to compile `hello.c` (alternatively you could have used a base image that already included gcc). After that, we copy over the `hello.c` file into the image using the `ADD` directive.
+Next we install gcc, which we'll use to compile `hello.c` (alternatively you could have used a base image that already includes gcc). After that, we copy over the `hello.c` file into the image using the `ADD` directive.
 
 Next, using the `WORKDIR` directive, we move to the `/app/` directory in the image and compile `hello.c` using gcc.
 
@@ -67,7 +67,7 @@ And you should see "hello world" printed on the screen.
 
 ## Networked application in Docker
 
-In order to have our Docker containers talking to each other, we are going to create a user-defined bridge network in Docker. While containers can communicate over the default bridge network in Docker, the bridge does not provide container name to IP address resolution. This name resolution is useful to have because, while writing your distributed application, you can make a peer list of container names once and use it between different runs of your system without having to update it, as long as you're using the same container names between runs.
+In order to have our Docker containers talking to each other, we are going to create a user-defined bridge network in Docker. While containers can communicate over the default bridge network in Docker, the bridge does not provide container name to IP address resolution. This name resolution is useful to have because, while writing your distributed application, you can make a peer list of hostnames once and use it between different runs of your system without having to update it, as long as you're using the same container names between runs.
 
 To start off, we list the existing Docker networks using:
 ```
@@ -88,7 +88,7 @@ RUN apt-get update
 RUN apt-get install -y netcat iputils-ping
 ```
 
-Put the above Dockerfile in a new directory called `docker-network`. We will be using `netcat`, the TCP/IP Swiss Army Knife, to test out networking between Docker containers. `netcat` comes in very handy when testing out networking applications and I'd strongly recommend getting comfortable with it.
+Put the above Dockerfile in a new directory called `docker-network`. We will be using `netcat`, the TCP/IP Swiss Army Knife, to test out networking between Docker containers. `netcat` comes in very handy when testing out networking applications and I'd strongly recommend getting comfortable with it for this course.
 
 Next, navigate to `docker-network` and build the Docker image:
 ```
@@ -108,13 +108,12 @@ docker run -it --name second --network mynetwork  dockernetwork
 
 You will now have two running instances of Docker containers based on the `dockernetwork` image.
 
-In the `first` container, run:
+We will now start a TCP server that accepts connections on port 3000 in the `first` container:
 ```
 netcat -nvlp 3000
 ```
-What this will do is open a TCP server that accepts connections on port 80.
 
-From `second` container, run:
+From `second` container, connect to the `first` container by running:
 ```
 netcat -v first 3000
 ```
