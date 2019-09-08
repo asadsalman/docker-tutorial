@@ -1,7 +1,6 @@
 # Docker tutorial
 
 This tutorial will walk you through using Docker for assigned projects in CS 7610: Foundations of Distributed Systems.
-## Docker Intro
 
 ## Why use Docker for CS 7610
 Among other reasons using Docker is a good idea in general, some reasons for using it for projects in CS 7610 are:
@@ -51,14 +50,14 @@ Next we install gcc, which we'll use to compile `hello.c` (alternatively you cou
 
 Next, using the `WORKDIR` directive, we move to the `/app/` directory in the image and compile `hello.c` using gcc.
 
-Finally, I set the entrypoint of our container to be the newly built `hello` binary. What this means is, as soon as the container runs, `/app/hello` will be excuted.
+Finally, I set the entrypoint of our container to be the newly built `hello` binary. What this means is, as soon as the container runs, `/app/hello` will be executed.
 
 Let's now build the image and run the container. While in the `docker-hello` directory, run the following command in the shell:
 ```
 docker build . -t "dockerhello"
 ```
 
-This builds the container using the Dockerfile in the current directory, and gives it the tag "dockerhello". At this point, `hello.c` has been copied over and built using gcc inside our Docker image, and will execuse as soon as the container starts.
+This builds the container using the Dockerfile in the current directory, and gives it the tag "dockerhello". At this point, `hello.c` has been copied over and built using gcc inside our Docker image, and will execute as soon as the container starts.
 
 Now we run it:
 ```
@@ -100,10 +99,26 @@ Now we're going to run two container instances of the image `dockernetwork` and 
 
 In a shell, run
 ```
-docker run --name first --network mynetwork -it dockernetwork
+docker run -it --name first --network mynetwork  dockernetwork
 ```
 In another shell, run:
 ```
-docker run --name second --network mynetwork -it dockernetwork
+docker run -it --name second --network mynetwork  dockernetwork
 ```
+
+You will now have two running instances of Docker containers based on the `dockernetwork` image.
+
+In the `first` container, run:
+```
+netcat -nvlp 3000
+```
+What this will do is open a TCP server that accepts connections on port 80.
+
+From `second` container, run:
+```
+netcat -v first 3000
+```
+
+At this point, both containers should show that you have successfully established a TCP connection. Anything you type now in the shell, followed by the enter/return key, will be echoed on the other side, indicating a successfuly TCP conneciton.
+
 
