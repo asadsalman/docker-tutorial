@@ -65,9 +65,9 @@ docker run dockerhello
 ```
 And you should see "hello world" printed on the screen.
 
-## Networked application in Docker
+## Networking demo in Docker
 
-In order to have our Docker containers talking to each other, we are going to create a user-defined bridge network in Docker. While containers can communicate over the default bridge network in Docker, the bridge does not provide container name to IP address resolution. This name resolution is useful to have because, while writing your distributed application, you can make a peer list of hostnames once and use it between different runs of your system without having to update it, as long as you're using the same container names between runs.
+In order to have our Docker containers talking to each other, we are going to create a user-defined bridge network in Docker. While containers can communicate over the default bridge network in Docker, the bridge does not provide container name to IP address resolution. This name resolution is useful because, while writing your distributed application, you can make a peer list of hostnames once and use it between different runs of your system without having to update it, as long as you're using the same container names between runs.
 
 To start off, we list the existing Docker networks using:
 ```
@@ -80,7 +80,7 @@ docker network create --driver bridge mynetwork
 ```
 
 
-Now to create a Dockerfile that will let use play around with networking between containers:
+Now to create a Dockerfile that will let us play around with networking between containers:
 ```
 FROM ubuntu:latest
 
@@ -106,7 +106,7 @@ In another shell, run:
 docker run -it --name second --network mynetwork  dockernetwork
 ```
 
-You will now have two running instances of Docker containers based on the `dockernetwork` image.
+You will now have two running instances of Docker containers based on the `dockernetwork` image, both part of `mynetwork` network.
 
 We will now start a TCP server that accepts connections on port 3000 in the `first` container:
 ```
