@@ -9,10 +9,12 @@ Among other reasons using Docker is a good idea in general, some reasons for usi
 2. It will become much easier to write and test out distributed applications for the course, which will likely have multiple instances running, once you get past the initial learning curve of Docker
 
 
+## Installing Docker
+
+Install the latest stable release of Docker Community Edition on your computer. You will need superuser/adminstrator access for this so it won't work on Northeastern Machines. You can get further instructions on [Docker's website](https://docs.docker.com/install/) for your specific operating system.
+
 ## Simple application
 I'll walk you through writing a simple C "hello world" application in Docker. Later on in the tutorial, we'll get into networking in Docker.
-
-Install Docker by following instructions on [Docker's website](https://docs.docker.com/install/).
 
 Create a directory `docker-hello` and create the following two files in the directory: `hello.c` and `Dockerfile`.
 
